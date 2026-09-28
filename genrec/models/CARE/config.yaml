@@ -1,0 +1,57 @@
+# Fair CARE config.
+#
+# Default runs use the local lightweight T5 backbone for parity with TIGER.
+
+metadata: sentence
+lr: 0.001
+weight_decay: 0.05
+
+# normal
+#lr: 0.003
+
+# Sports_and_Outdoors
+#lr: 0.001
+
+# Same sentence embedding model and semantic-ID construction as TIGER.
+sent_emb_model: /root/autodl-tmp/anonymous-recsys/sentence-t5-base
+sent_emb_batch_size: 512
+sent_emb_dim: 768
+sent_emb_pca: 128
+
+rq_faiss: True
+faiss_omp_num_threads: 32
+rq_n_codebooks: 3
+rq_codebook_size: 256
+
+# RQ-VAE fallback settings, kept for parity with TIGER when rq_faiss=False.
+rqvae_hidden_sizes: [2048,1024,512,256,128]
+rqvae_dropout: 0.0
+rqvae_lr: 0.001
+ravae_batch_size: 2048
+rqvae_epoch: 10000
+rqvae_beta: 0.25
+rqvae_verbose: 500
+rqvae_low_usage_threshold: -1
+
+# CARE-specific reasoning. One query per generated semantic digit matches the
+# CARE-main default `--query_list 1 1 1 1`.
+care_query_list: [2,2,2,2]
+care_progressive_list: [True,True,True,True]
+care_progressive_attn: True
+care_query_div_scale: 0.1
+
+# Generative recommender settings, matched to TIGER.
+n_user_tokens: 1
+max_item_seq_len: 50
+num_beams: 50
+
+# T5 config, used when backbone=t5 and matched to TIGER.
+num_layers: 2
+num_decoder_layers: 2
+d_model: 128
+d_ff: 1024
+num_heads: 6
+d_kv: 64
+dropout_rate: 0.1
+activation_function: "relu"
+feed_forward_proj: "relu"

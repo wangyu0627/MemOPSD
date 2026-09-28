@@ -1,0 +1,29 @@
+# Fair CL4SRec/SASRec config.
+#
+# CL4SRec keeps the SASRec recommendation backbone unchanged and adds only
+# sequence augmentations plus an InfoNCE loss. The backbone hyperparameters
+# below intentionally match genrec/models/SASRec/config.yaml.
+
+train_batch_size: 256
+eval_batch_size: 256
+lr: 0.001
+
+# Shared SASRec backbone.
+max_item_seq_len: 50
+n_embd: 64
+n_layer: 4
+n_head: 2
+n_inner: 256
+activation_function: gelu_new
+resid_pdrop: 0.0
+embd_pdrop: 0.5
+attn_pdrop: 0.5
+layer_norm_epsilon: 1e-12
+initializer_range: 0.02
+
+# CL4SRec-specific objective.
+# cl_aug_type: 0=crop, 1=reorder, 2=mask, random=randomly sample one per view.
+cl_aug_type: 2
+cl_aug_rate: 0.2
+cl_loss_weight: 0.02
+cl_temperature: 1.0

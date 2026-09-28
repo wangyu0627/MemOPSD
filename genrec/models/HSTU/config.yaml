@@ -1,0 +1,24 @@
+# Overwriting configs
+train_batch_size: 256
+eval_batch_size: 256
+lr: 1e-3
+warmup_steps: 0
+
+# Config for HSTU
+max_item_seq_len: 50
+n_embd: 64
+num_blocks: 4
+num_heads: 2
+dqk: 8
+dv: 8
+dropout_rate: 0.5
+linear_dropout_rate: 0.5
+attn_dropout_rate: 0.0
+linear_activation: silu
+enable_relative_attention_bias: True
+temperature: 0.05
+item_l2_norm: True
+user_l2_norm: True
+layer_norm_epsilon: 1e-6
+initializer_range: 0.02
+

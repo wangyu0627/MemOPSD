@@ -1,0 +1,34 @@
+# Fair FDSA config.
+#
+# The default budget keeps the deployed recommender scale close to the
+# SASRec/S3Rec fair configs: hidden size 64, sequence length 50, and two
+# self-attention blocks in total (one item branch + one feature branch).
+# FDSA-specific side-information parameters are reported separately by
+# model.n_parameters so runs can compare total and non-embedding capacity.
+
+metadata: sentence
+train_batch_size: 256
+eval_batch_size: 256
+lr: 1e-3
+weight_decay: 0.0
+warmup_steps: 0
+
+max_item_seq_len: 50
+hidden_size: 64
+num_item_layers: 1
+num_feature_layers: 1
+num_item_heads: 2
+num_feature_heads: 2
+hidden_act: relu
+hidden_dropout_prob: 0.5
+attention_probs_dropout_prob: 0.5
+initializer_range: 0.02
+layer_norm_epsilon: 1e-12
+filter_seen_items: False
+
+# Attribute extraction from dataset.item2meta. These values mirror S3Rec's
+# default side-information budget for fair side-feature comparisons.
+feature_min_freq: 2
+feature_vocab_size: 256
+max_features_per_item: 4
+prefix_feature_fields: True

@@ -1,0 +1,76 @@
+num_proc: 1
+train_num_workers: auto
+train_num_workers_cap: 8
+eval_num_workers: auto
+eval_num_workers_cap: 8
+dataloader_pin_memory: auto
+dataloader_persistent_workers: auto
+dataloader_prefetch_factor: 2
+cache_dir: /root/autodl-tmp/anonymous-recsys/cache
+use_wandb: False
+wandb_project: anonymous-recsys
+log_dir: logs/
+tensorboard_log_dir: tensorboard/
+ckpt_dir: /root/autodl-tmp/anonymous-recsys/ckpt/
+run_id: genrec_default  # Change this to your customized run id
+rand_seed: 2024
+reproducibility: True
+logging: True
+
+train_batch_size: 512
+eval_batch_size: 256
+test_batch_size: 128
+lr: 0.0003             # Note that TIGER will overwrite this to 0.003
+weight_decay: 0.0
+warmup_steps: 10000
+steps: ~
+epochs: 300             # Make sure model fully converges
+budget_epochs: None     # If specified, early stop at the specified epoch
+max_grad_norm: 1.0      # None for no clipping, else a float value
+eval_interval: 4        # Evaluate every n epochs
+patience: 20           # Early stopping. Stop training after n epochs without improvement. Set to None to disable
+
+topk: [10]              # Validation metrics and early stopping use this list
+test_topk: [5,10,20,50]      # Final test/eval-only metrics use this list
+val_num_beams: 10       # Beam width for validation during training; must be at least max(topk)
+test_num_beams: None    # None keeps each model's num_beams for final test/eval-only
+metrics: [ndcg,recall,err]
+val_metric: ndcg@10
+tune_split: val          # val by default; set to test only for diagnostic test-set tuning
+load_best_ckpt: True
+
+# Universal post-training controls. SFT keeps the standard supervised
+# objective. OPRD loads an SFT checkpoint and can align the student to a
+# memory teacher through gold and sampled logit distillation.
+post_train_stage: sft
+sft_checkpoint_path: None
+skip_sft_if_checkpoint: True
+oprd_epochs: 30
+oprd_patience: 3
+oprd_min_delta: 0.0
+oprd_eval_sft_baseline: False
+oprd_lr: 1e-5
+oprd_weight_decay: 0.0
+oprd_warmup_steps: 0
+oprd_ce_weight: 1.0
+oprd_num_rollouts: 1
+oprd_rollout_temperature: 1.0
+oprd_train_backbone: True
+
+# Optional memory-only OPRD for a normal TIGER student. Only memory-labeled
+# train examples align to Memory-TIGER; non-memory examples keep CE-only by
+# default, preserving the normal TIGER's generalization behavior.
+memory_oprd_teacher_path: None
+memory_oprd_labels_path: None
+memory_oprd_non_memory: skip  # one of skip, align
+memory_oprd_logit_weight: 0.0
+memory_oprd_temperature: 2.0
+memory_oprd_normalization: selected  # selected valid tokens / all batch valid tokens
+memory_oprd_ce_weight: 0.0  # TIGER-only extra gold-prefix Memory SID CE; requires KL weight 0
+
+# Fine-grained evaluation
+eval_fine_grained: False     # Enable fine-grained evaluation during validation/test/eval-only
+eval_results_file: None     # Path to the file to save the evaluation results
+fine_grained_metric: ndcg@10 # Metric to use for fine-grained evaluation
+max_hop: 4                   # Maximum hop for fine-grained patterns
+exclusive_labels: True      # Whether to only label the smallest hop where it becomes true

@@ -1,0 +1,6 @@
+# Enable the S3Rec self-supervised pretraining stage before fine-tuning.
+# The original repository commonly uses 100 or 150 pretraining epochs for
+# Amazon/Yelp-style datasets, and 300 as the generic default.
+
+pretrain_epochs: 100
+

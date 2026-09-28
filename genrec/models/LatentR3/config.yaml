@@ -1,0 +1,82 @@
+# LatentR3 config.
+#
+# This adaptation keeps the local TIGER semantic tokenizer and lightweight T5
+# backbone so comparisons are fair with the other default models. LatentR3's
+# extra capacity is limited to the latent attention module; the output
+# vocabulary and embedding table are exactly the same size as TIGER.
+
+metadata: sentence
+backbone: t5
+lr: 0.001
+weight_decay: 0.05
+
+# Same semantic-ID construction as TIGER.
+sent_emb_model: /root/autodl-tmp/anonymous-recsys/sentence-t5-base
+sent_emb_batch_size: 512
+sent_emb_dim: 768
+sent_emb_pca: 128
+
+rq_faiss: True
+faiss_omp_num_threads: 32
+rq_n_codebooks: 3
+rq_codebook_size: 256
+
+# RQ-VAE fallback settings, kept for parity with TIGER when rq_faiss=False.
+rqvae_hidden_sizes: [2048,1024,512,256,128]
+rqvae_dropout: 0.0
+rqvae_lr: 0.001
+ravae_batch_size: 2048
+rqvae_epoch: 10000
+rqvae_beta: 0.25
+rqvae_verbose: 500
+rqvae_low_usage_threshold: -1
+
+# Generative recommender settings.
+n_user_tokens: 1
+max_item_seq_len: 50
+num_beams: 50
+
+# T5 config, matched to TIGER.
+num_layers: 2
+num_decoder_layers: 2
+d_model: 128
+d_ff: 1024
+num_heads: 6
+d_kv: 64
+dropout_rate: 0.1
+activation_function: "relu"
+feed_forward_proj: "relu"
+
+# LatentR3-specific settings.
+# -1 means the latent thought attends to all previous prompt tokens, matching
+# the default R3 code. Positive values limit it to the previous K tokens.
+latentr3_end_k: -1
+latentr3_rope_base: 1000.0
+
+# Set True to mimic R3's valid-title prefix constraint with semantic-id
+# prefixes. Default is False to match the unconstrained default decoding used
+# by the other local generative baselines.
+latentr3_constrained_generation: False
+
+# End-to-end LatentR3 training: first SFT with the framework CE objective, then
+# GRPO. token_match is the safest default here because it is target-aligned and
+# denser than exact_match; likelihood can reinforce high-probability wrong samples.
+latentr3_use_grpo: True
+latentr3_sft_checkpoint_path: None
+latentr3_skip_sft_if_checkpoint: True
+latentr3_grpo_epochs: 3
+latentr3_grpo_patience: 1
+latentr3_grpo_min_delta: 0.0
+latentr3_grpo_eval_sft_baseline: True
+latentr3_grpo_lr: 1e-4
+latentr3_grpo_weight_decay: 0.0
+latentr3_grpo_warmup_steps: 0
+latentr3_grpo_num_generations: 8
+latentr3_grpo_temperature: 1.0
+latentr3_grpo_epsilon: 0.2
+latentr3_grpo_normalize_advantages: True
+latentr3_grpo_reward_type: exact_match  # exact_match, token_match, or likelihood
+
+# Original R3 freezes the base LM during GRPO and updates the latent attention
+# module. Keep this False for the fairest default. Set True for full-model GRPO.
+latentr3_grpo_train_backbone: False

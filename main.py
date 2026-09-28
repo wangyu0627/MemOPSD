@@ -6,7 +6,7 @@ from genrec.utils import parse_command_line_args, get_pipeline
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', type=str, default='TIGER', help='Model name')
-    parser.add_argument('--dataset', type=str, default='AmazonReviews2014', help='Dataset name')
+    parser.add_argument('--dataset', type=str, default='AmazonReviews2023', help='Dataset name')
     parser.add_argument('--checkpoint_path', type=str, default=None, help='Checkpoint path')
     parser.add_argument('--config', type=str, default=None, help='Config file')
     return parser.parse_known_args()

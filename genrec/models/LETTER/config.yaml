@@ -1,0 +1,52 @@
+# Fair LETTER-TIGER config.
+#
+# The recommendation backbone matches TIGER's T5 setting so parameter counts
+# stay comparable. LETTER-specific capacity lives in the offline tokenizer and
+# is not used at recommendation-time.
+
+metadata: sentence
+lr: 0.001
+weight_decay: 0.05
+
+# Sentence embedding model for item text.
+sent_emb_model: /root/autodl-tmp/anonymous-recsys/sentence-t5-base
+sent_emb_batch_size: 512
+sent_emb_dim: 768
+sent_emb_pca: 128
+
+# LETTER tokenizer: same code shape as TIGER for vocabulary fairness.
+rq_n_codebooks: 3
+rq_codebook_size: 256
+letter_tokenizer_epochs: 500
+letter_tokenizer_batch_size: 1024
+letter_tokenizer_lr: 1e-3
+letter_tokenizer_weight_decay: 1e-4
+letter_tokenizer_hidden_sizes: [2048,1024,512,256,128,64]
+letter_latent_dim: 32
+letter_tokenizer_dropout: 0.0
+letter_quant_loss_weight: 1.0
+letter_commitment_weight: 0.25
+letter_cf_weight: 0.01
+letter_diversity_weight: 1e-4
+letter_diversity_temperature: 1.0
+letter_kmeans_init: True
+letter_sklearn_num_threads: 32
+letter_cf_window: 2
+
+# Generative recommender backbone.
+n_user_tokens: 1
+max_item_seq_len: 50
+num_beams: 50
+constrained_generation: False
+temperature: 1.0
+
+# T5 config, matched to TIGER.
+num_layers: 4
+num_decoder_layers: 4
+d_model: 128
+d_ff: 1024
+num_heads: 6
+d_kv: 64
+dropout_rate: 0.1
+activation_function: "relu"
+feed_forward_proj: "relu"

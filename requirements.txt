@@ -1,3 +1,4 @@
+--extra-index-url https://download.pytorch.org/whl/cu128
 torch==2.11.0+cu128
 torchvision==0.26.0+cu128
 torchaudio==2.11.0+cu128
@@ -11,3 +12,9 @@ scipy==1.15.3
 matplotlib>=3.8
 wandb
 tqdm
+PyYAML
+requests
+sentence-transformers
+sentencepiece
+faiss-cpu
+threadpoolctl

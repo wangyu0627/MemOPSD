@@ -1,0 +1,43 @@
+# Fair BERT4Rec config.
+#
+# The deployed recommender size is aligned with SASRec/S3Rec:
+# 2 Transformer layers, hidden size 64, 2 heads, and 50 historical items.
+# BERT4Rec uses one extra token position for the masked target.
+# BERT4Rec's method difference is bidirectional masked item modeling.
+
+metadata: sentence
+train_batch_size: 256
+eval_batch_size: 256
+lr: 0.0001
+weight_decay: 0.0
+warmup_steps: 100
+
+# normal
+#lr: 0.001
+
+# Industrial_and_Scientific
+#lr: 0.0001
+
+# Sports_and_Outdoors
+#lr: 0.0001
+
+max_item_seq_len: 50
+masked_lm_prob: 0.6
+max_predictions_per_seq: 30
+mask_prob: 1.0
+dupe_factor: 1
+prop_sliding_window: 0.1
+train_mask_last: True
+train_all_prefixes: True
+filter_seen_items: True
+filter_seen_max_len: 200
+
+hidden_size: 64
+num_hidden_layers: 2
+num_attention_heads: 2
+hidden_act: gelu
+hidden_dropout_prob: 0.2
+attention_probs_dropout_prob: 0.2
+initializer_range: 0.02
+layer_norm_epsilon: 1e-12
+type_vocab_size: 2
