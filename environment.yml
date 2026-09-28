@@ -1,4 +1,4 @@
-name: anonymous-recsys
+name: MemOPSD
 channels:
   - defaults
 dependencies:

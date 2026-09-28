@@ -6,19 +6,19 @@ Office_Products) and Steam.
 
 ## AutoDL setup
 
-Extract the source directory to `/root/autodl-tmp/anonymous-recsys` on an AutoDL
+Extract the source directory to `/root/autodl-tmp/MemOPSD` on an AutoDL
 Linux GPU instance. All default resource paths use this directory.
 
 ```bash
-cd /root/autodl-tmp/anonymous-recsys
+cd /root/autodl-tmp/MemOPSD
 conda env create -f environment.yml
-conda activate anonymous-recsys
+conda activate MemOPSD
 ```
 
 The requirements retain the framework versions configured in the code, including
 CUDA 12.8 PyTorch wheels. Use a compatible GPU driver. Weights, data, and outputs
 are stored separately from source. Place the sentence embedding model under
-`/root/autodl-tmp/anonymous-recsys/sentence-t5-base` when constructing semantic
+`/root/autodl-tmp/MemOPSD/sentence-t5-base` when constructing semantic
 IDs from item metadata.
 
 ## Data and semantic IDs

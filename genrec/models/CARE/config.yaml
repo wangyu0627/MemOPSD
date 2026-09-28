@@ -13,7 +13,7 @@ weight_decay: 0.05
 #lr: 0.001
 
 # Same sentence embedding model and semantic-ID construction as TIGER.
-sent_emb_model: /root/autodl-tmp/anonymous-recsys/sentence-t5-base
+sent_emb_model: /root/autodl-tmp/MemOPSD/sentence-t5-base
 sent_emb_batch_size: 512
 sent_emb_dim: 768
 sent_emb_pca: 128

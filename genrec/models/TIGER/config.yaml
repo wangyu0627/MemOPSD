@@ -4,7 +4,7 @@ lr: 0.001            # Overwrite learning rate
 weight_decay: 0.05    # Overwrite weight decay
 
 # Config for sentence embedding model
-sent_emb_model: /root/autodl-tmp/anonymous-recsys/sentence-t5-base
+sent_emb_model: /root/autodl-tmp/MemOPSD/sentence-t5-base
 sent_emb_batch_size: 512
 sent_emb_dim: 768
 sent_emb_pca: 128     # -1 means no PCA, otherwise PCA dimension

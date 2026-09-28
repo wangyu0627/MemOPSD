@@ -9,7 +9,7 @@ lr: 0.001
 weight_decay: 0.05
 
 # Sentence embedding model for item text.
-sent_emb_model: /root/autodl-tmp/anonymous-recsys/sentence-t5-base
+sent_emb_model: /root/autodl-tmp/MemOPSD/sentence-t5-base
 sent_emb_batch_size: 512
 sent_emb_dim: 768
 sent_emb_pca: 128
