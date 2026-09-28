@@ -1,7 +1,7 @@
-# Anonymous recommendation experiments
+# MemOPSD
 
-Source code for sequential recommendation baselines and memory-guided
-post-training on Amazon Reviews 2023 (Industrial_and_Scientific, Video_Games,
+Implementation of MemOPSD and sequential recommendation baselines. The main
+experiments use Amazon Reviews 2023 (Industrial_and_Scientific, Video_Games,
 Office_Products) and Steam.
 
 ## AutoDL setup
