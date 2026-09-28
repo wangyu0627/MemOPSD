@@ -23,6 +23,9 @@ IDs from item metadata.
 
 ## Data and semantic IDs
 
+The preprocessed data used in the main experiments is available on
+[Google Drive](https://drive.google.com/file/d/1vp27k_BSb4nYYARzUot7ps6Zl3dd8WMZ/view?usp=sharing).
+
 The dataset loaders process public Amazon Reviews 2023 and Steam data.
 For an existing experiment, preserve the preprocessing configuration,
 interaction sequences, item/user ID mappings, metadata, and semantic IDs.
